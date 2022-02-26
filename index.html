@@ -46,11 +46,11 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="convertFrom">Convert from:</label>
-                                <select class="form-select" name="convertFrom" id="convertFrom">
+                                <select class="form-select" name="convertFrom" id="convertFrom" onchange="chnageGrade()">
                                     <option disabled selected>Select climbing grade system:</option>
-                                    <option value="Yoesemite">Yoesemite</option>
-                                    <option value="French">French</option>
-                                    <option value="Australian">Australian</option>
+                                    <option value="yosemite">yosemite</option>
+                                    <option value="french">french</option>
+                                    <option value="australian">australian</option>
                                 </select>
                             </div>
                         </div>
@@ -59,10 +59,18 @@
                                 <label for="grade">Grade:</label>
                                 <select class="form-select" name="grade" id="grade">
                                     <option disabled selected>Select grade:</option>
-                                    <option value="5.4">5.4</option>
-                                    <option value="5.5">5.5</option>
-                                    <option value="5.6">5.6</option>
-                                    <option value="5.7">5.7</option>
+                                    <option class="yosemite-grade" value="1">5.4</option>
+                                    <option class="yosemite-grade" value="2">5.5</option>
+                                    <option class="yosemite-grade" value="3">5.6</option>
+                                    <option class="yosemite-grade" value="4">5.7</option>
+                                    <option class="french-grade" value="1">4a</option>
+                                    <option class="french-grade" value="2">4b</option>
+                                    <option class="french-grade" value="3">4c</option>
+                                    <option class="french-grade" value="4">5a</option>
+                                    <option class="australian-grade" value="1">12</option>
+                                    <option class="australian-grade" value="2">13</option>
+                                    <option class="australian-grade" value="3">14</option>
+                                    <option class="australian-grade" value="4">15</option>
                                 </select>
                             </div>
                         </div>
@@ -71,9 +79,9 @@
                         <label for="convertTo">Convert to:</label>
                         <select class="form-select" name="convertTo" id="convertTo">
                             <option disabled selected>Select climbing grade system:</option>
-                            <option value="Yoesemite">Yoesemite</option>
-                            <option value="French">French</option>
-                            <option value="Australian">Australian</option>
+                            <option value="yosemite">yosemite</option>
+                            <option value="french">french</option>
+                            <option value="australian">australian</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary mt-2" id="formSubmit">Convert</button>
@@ -88,3 +96,45 @@
         </main>
     </body>
 </html>
+
+<script>
+    // logic to handle changing grading systems that are being converted from
+    function chnageGrade() {
+      const value = document.getElementById("convertFrom").value;
+      if (value === "yosemite") {
+        const frenchCollection = document.getElementsByClassName("french-grade")
+        changeDisplay(frenchCollection, "none")
+
+        const yosemiteCollection = document.getElementsByClassName("yosemite-grade")
+        changeDisplay(yosemiteCollection, "block")
+
+        const australianCollection = document.getElementsByClassName("australian-grade")
+        changeDisplay(australianCollection, "none")
+
+      } else if (value === "french") {
+        const frenchCollection = document.getElementsByClassName("french-grade")
+        changeDisplay(frenchCollection, "block")
+
+        const yosemiteCollection = document.getElementsByClassName("yosemite-grade")
+        changeDisplay(yosemiteCollection, "none")
+
+        const australianCollection = document.getElementsByClassName("australian-grade")
+        changeDisplay(australianCollection, "none")
+
+      } else if (value === "australian") {
+        const frenchCollection = document.getElementsByClassName("french-grade")
+        changeDisplay(frenchCollection, "none")
+
+        const yosemiteCollection = document.getElementsByClassName("yosemite-grade")
+        changeDisplay(yosemiteCollection, "none")
+
+        const australianCollection = document.getElementsByClassName("australian-grade")
+        changeDisplay(australianCollection, "block")
+      }
+    }
+    function changeDisplay(collection, display){
+        for (let i = 0; i < collection.length; i++) {
+            collection[i].style["display"] = display
+        }
+    }
+</script>
