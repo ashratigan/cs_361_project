@@ -21,9 +21,10 @@ function submitForm(){
             req.setRequestHeader('Content-Type', 'application/json');
             req.addEventListener('load',function(){
             if(req.status >= 200 && req.status < 400){
-                const response = JSON.parse(req.responseText);
-            //   document.getElementById('ready-form-container').textContent = null;
-                document.getElementById('form-response').textContent = "Success!";
+                // const response = JSON.parse(req.responseText);
+                const respone = 12
+                document.getElementById('form-response').innerHTML = `<p>Success! <a href="./info.html#${convertFrom}Info">${convertFrom}</a>: ${grade} is equivalent to <a href="./info.html#${convertTo}Info">${convertTo}</a>: ${respone}</p>`
+                // document.getElementById('form-response').textContent = `Success! ${convertFrom}: ${grade} is equivalent to ${convertTo}: ${respone}`;
                 document.getElementById('form-response').style.color = "green";
             } else {
                 console.log("Error in network request: " + req.statusText);

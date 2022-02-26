@@ -1,3 +1,9 @@
 main {
-    padding: 20px;
+    padding: 50px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#ready-form-container {
+    margin: 50px 0;
 }
