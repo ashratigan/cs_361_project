@@ -22,8 +22,7 @@ function submitForm(){
             req.addEventListener('load',function(){
             if(req.status >= 200 && req.status < 400){
                 const response = JSON.parse(req.responseText);
-                // console.log("RESPONSE: ", response, response[convertTo])
-                document.getElementById('form-response').innerHTML = `<p>Success! <a href="./info.html#${convertFrom}Info">${convertFrom}</a>: ${response[convertFrom]} is equivalent to <a href="./info.html#${convertTo}Info">${convertTo}</a>: ${response[convertTo]}</p>`
+                document.getElementById('form-response').innerHTML = `<p>Success! <a href="javascript:;" onclick=displayGradeInfo("${convertFrom}")>${convertFrom}</a>: ${response[convertFrom]} is equivalent to <a href="javascript:;" onclick=displayGradeInfo("${convertTo}")>${convertTo}</a>: ${response[convertTo]}</p>`
                 document.getElementById('form-response').style.color = "green";
             } else {
                 console.log("Error in network request: " + req.statusText);
@@ -41,4 +40,23 @@ function clearForm(){
     document.getElementById('formClear') && document.getElementById('formClear').addEventListener('click', function(event){
         document.getElementById('form-response').textContent = ""
     })
+}
+
+function displayGradeInfo(value) {
+    let section = "Yosemite%20Decimal%20System"
+    if (value === "french") {
+        section = "French%20numerical%20grades"
+    }
+
+    if (value === "australian") {
+        section = "Ewbank"
+    }
+    getSectionData(section)
+}
+
+async function getSectionData(section) {
+    let response = await fetch(`http://localhost:2000/section/climbing_grade/${section}`);
+    let data = await response.json()
+    document.getElementById("grade-info").innerText = data
+    return data;
 }
