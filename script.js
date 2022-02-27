@@ -60,3 +60,29 @@ async function getSectionData(section) {
     document.getElementById("grade-info").innerText = data
     return data;
 }
+
+async function fetchGrades() {
+    const response = await fetch('http://localhost:3000/grades')
+    return response.json()
+}
+
+fetchGrades().then(data => {
+    const gradeOptions = document.getElementById("grade")
+    let value = gradeOptions.options.length
+    data.forEach((grade) => {
+        gradeOptions.options[gradeOptions.options.length] = new Option(`${grade.yosemite}`, value)
+        gradeOptions.options[gradeOptions.options.length] = new Option(`${grade.french}`, value);
+        gradeOptions.options[gradeOptions.options.length] = new Option(`${grade.australian}`, value);
+        value += 1
+    })
+
+    for (let i = 0; i < gradeOptions.options.length; i++) {
+        if (i % 3 == 0) {
+            gradeOptions.options[i].className = "australian-grade"
+        } else if ((i + 1) % 3 == 0) {
+            gradeOptions.options[i].className = "french-grade"
+        } else if ((i + 2) % 3 == 0) {
+            gradeOptions.options[i].className = "yosemite-grade"
+        }
+    }
+})
