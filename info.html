@@ -38,6 +38,7 @@
 
         <main>
             <h1>Grade (climbing)</h1>
+            <div id="climbingImage"></div>
             <div id="wholePageWiki"></div>
         </main>
     </body>
@@ -45,13 +46,19 @@
 <script>
     window.onload = function() {
         getWholePageData();
+        getImageData();
     };
     async function getWholePageData() {
         const response = await fetch('http://localhost:2000/whole_page/Grade(climbing)');
         const data = await response.json()
         document.getElementById("wholePageWiki").innerText = data
-        return data;
     }
-
-    // getWholePageData().then(data => console.log(data))
+    async function getImageData() {
+        const response = await fetch('http://localhost:5000/imageresult/rock_climbing');
+        const data = await response.json()
+        let img = document.createElement('img');
+        img.src = data;
+        img.style = "width:500px;height:600px;"
+        document.getElementById('climbingImage').appendChild(img)
+    }
 </script>
